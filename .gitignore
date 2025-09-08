@@ -1,0 +1,26 @@
+# Unity generated
+ActionRPG/[Ll]ibrary/
+ActionRPG/[Tt]emp/
+ActionRPG/[Oo]bj/
+ActionRPG/[Bb]uild/
+ActionRPG/[Bb]uilds/
+ActionRPG/[Mm]emoryCaptures/
+ActionRPG/UserSettings/
+
+# IDE
+.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+
+# Burst / cache
+ActionRPG/Packages/com.unity.burst*/
+
