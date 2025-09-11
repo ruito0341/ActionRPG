@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MapTransition : MonoBehaviour
 {
-    [SerializeField] string NextScnen;
+    [SerializeField] string nextSceneName; // 行き先のシーン名
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) // プレイヤーに触れたら
         {
-            SceneManager.LoadScene(NextScnen);
+            SceneManager.LoadScene(nextSceneName);
         }
     }
-
 }
