@@ -164,6 +164,57 @@ Transform:
   - {fileID: 294217193}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &258301043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 258301045}
+  - component: {fileID: 258301044}
+  m_Layer: 0
+  m_Name: Enemyspawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &258301044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258301043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb784ee2bf9589447908c0c316b5eee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 900821855}
+  parent: {fileID: 0}
+  spawnAreaCenter: {x: 0, y: 0}
+  spawnAreaSize: {x: 17.19, y: 9.7}
+  spawnInterval: 2
+  maxEnemies: 10
+  initialSpawn: 3
+--- !u!4 &258301045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258301043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.8169783, y: -0.55634785, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &294217192
 GameObject:
   m_ObjectHideFlags: 0
@@ -5275,7 +5326,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2112712172}
-  - component: {fileID: 2112712173}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -5299,25 +5349,6 @@ Transform:
   - {fileID: 900821856}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2112712173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112712169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb784ee2bf9589447908c0c316b5eee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
-  parent: {fileID: 0}
-  spawnAreaCenter: {x: 0, y: 0}
-  spawnAreaSize: {x: 10, y: 5}
-  spawnInterval: 2
-  maxEnemies: 10
-  initialSpawn: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5330,3 +5361,4 @@ SceneRoots:
   - {fileID: 1850310046}
   - {fileID: 1732730875}
   - {fileID: 1994275323}
+  - {fileID: 258301045}
