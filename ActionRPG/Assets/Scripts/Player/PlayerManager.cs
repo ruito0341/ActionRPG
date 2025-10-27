@@ -8,6 +8,12 @@ using TMPro;
 public class PlayerManager : MonoBehaviour
 {
     [Header("Movement")]
+
+    [Header("Magic")]
+    public GameObject magicPrefab;//魔法プレハブ
+    public float magicCost = 10f;//MP消費
+    public float magicCooldown = 1f;//クールダウン時間
+    private bool canCastMagic = true;//魔法が使用可能か
     public float speed = 5f;
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -59,6 +65,7 @@ public class PlayerManager : MonoBehaviour
     void UpdateMPText()
     {
         mpText.text = "MP: " + maxMP.ToString();
+        mpText.text = "MP: " + currentMP.ToString();
     }
 
     void Update()
@@ -79,8 +86,48 @@ public class PlayerManager : MonoBehaviour
         {
             StartCoroutine(Attack());
         }
+
+        //魔法入力
+        if (Input.GetKeyDown(KeyCode.E) && canCastMagic && currentMP >= magicCost)
+        {
+            StartCoroutine(CastMagic());
+        }
     }
 
+    private IEnumerator CastMagic()
+    {
+        canCastMagic = false;
+
+    // MPを消費
+    currentMP -= (int)magicCost;
+    UpdateMPText();
+
+    if (magicPrefab != null)
+    {
+        // 向きがゼロなら下向きにする
+        Vector2 dir = lastMoveDir;
+        if (dir == Vector2.zero) dir = Vector2.down;
+
+        // 最近接の4方向に丸める（左右か上下かを判定）
+        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+            dir = new Vector2(Mathf.Sign(dir.x), 0f); // 左/右
+        else
+            dir = new Vector2(0f, Mathf.Sign(dir.y)); // 上/下
+
+            // 発射位置（プレイヤーの少し前方）
+            Vector3 spawnPos = transform.position + (Vector3)dir * 0.6f;
+            GameObject proj = Instantiate(magicPrefab, spawnPos, Quaternion.identity);
+
+            var mp = proj.GetComponent<MagicProjectile>();
+            if (mp != null)
+            {   
+                mp.SetDirection(dir); // 方向を渡す
+            }
+    }
+
+        yield return new WaitForSeconds(magicCooldown);
+        canCastMagic = true;
+    }
     void FixedUpdate()
     {
         rb.velocity = moveInput * speed;
@@ -172,4 +219,5 @@ public class PlayerManager : MonoBehaviour
         TakeDamage(10);
         }
     }
+    
 }
