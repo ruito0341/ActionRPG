@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public PlayerManager playerManager;
     public int maxHealth = 100;
     private int currentHealth;
+
+    public int expOnDeath = 50;
 
     void Start()
     {
@@ -26,6 +29,19 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        if (playerManager == null)
+        {
+           playerManager = FindObjectOfType<PlayerManager>();
+        }
+
+        if (playerManager != null)
+        {
+            playerManager.GainExp(expOnDeath);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerManager が割り当てられていません");
+        }
         Debug.Log(gameObject.name + "は倒した!");
         Destroy(gameObject);
     }

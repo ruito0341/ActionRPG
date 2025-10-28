@@ -34,8 +34,9 @@ public class PlayerManager : MonoBehaviour
     public int currentMP;
 
     public int attack = 10;
-    public int defense = 5;
-    public int Speed = 5;
+
+    public int magicPower = 20;
+
 
     //Experiencce
     public int currentExp = 0;
@@ -176,9 +177,8 @@ public class PlayerManager : MonoBehaviour
         //Increase Stats
         maxHP += 20;
         maxMP += 10;
-        attack += 5;
-        defense += 5;
-        Speed += 1;
+        attack += 10;
+        magicPower += 10;
 
         currentHP = maxHP;
         currentMP = maxMP;
@@ -205,7 +205,6 @@ public class PlayerManager : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("OnTriggerEnter2D hit: " + other.name);
             TakeDamage(10);
         }
     }
