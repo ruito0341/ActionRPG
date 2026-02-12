@@ -15,11 +15,11 @@ public class AttackHitbox : MonoBehaviour
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
         }
-        if(rb != null)
+        if (rb != null)
         {
             rb.bodyType = RigidbodyType2D.Kinematic;
             rb.simulated = true;
-            rb.useFullKinematicContacts = true; 
+            rb.useFullKinematicContacts = true;
         }
 
         var col = GetComponent<Collider2D>();
@@ -28,25 +28,27 @@ public class AttackHitbox : MonoBehaviour
             col.isTrigger = true;
         }
     }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         Enemy enemy = collision.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            //プレイヤーの攻撃力を取得
-            PlayerManager player = GetComponentInParent<PlayerManager>();
-            int totalDamage = damage;
-            if (player != null)
-            {
-                totalDamage += player.attack;
-            }
-            else
-            {
-                //playerが取れない場合はbaseDamageのみ
-                Debug.LogWarning("playermanagerがいません");
-            }
-            enemy.TakeDamage(totalDamage);
+        if (enemy == null) return;
+
+        // プレイヤーの攻撃力を取得（AttackHitbox がプレイヤーの子である想定）
+        PlayerManager player = GetComponentInParent<PlayerManager>();
+
+        // ここで合算方法を決める：
+        // 1) プレイヤーの attack のみをダメージにしたい場合：
+        int totalDamage = (player != null) ? player.attack : damage;
+
+        // 2) 基礎ダメージ + プレイヤー攻撃力 にしたい場合は上を次のようにする：
+        // int totalDamage = damage + (player != null ? player.attack : 0);
+
+        Debug.Log($"AttackHitbox hit {enemy.name} baseDamage={damage} playerAttack={(player!=null?player.attack:-1)} totalDamage={totalDamage}");
+
+        enemy.TakeDamage(totalDamage);
         }
     }    
-}
+

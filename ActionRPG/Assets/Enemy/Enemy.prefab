@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7012046159333984294}
   - component: {fileID: 3646033860591506620}
   m_Layer: 7
-  m_Name: Square
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d941f3d769c27c84f9465e49cf6a4cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
   maxHealth: 100
+  expOnDeath: 50
+  speed: 1
 --- !u!114 &3646033860591506620
 MonoBehaviour:
   m_ObjectHideFlags: 0

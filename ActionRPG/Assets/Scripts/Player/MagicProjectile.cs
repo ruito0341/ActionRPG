@@ -6,14 +6,24 @@ using UnityEngine;
 public class MagicProjectile : MonoBehaviour
 {
     public float speed = 10f;
-    public int damage = 20;
+    public int damage = 0;
     public float lifetime = 2f;
 
     // 進行方向（外部から設定）
     private Vector2 direction = Vector2.right;
 
+    // プレイヤーから渡される魔力（これをそのままダメージにする）
+    private int powerFromPlayer = 0;
+
     void Start()
     {
+
+        var projectiles = GetComponents<MagicProjectile>();
+       
+        foreach (var proj in projectiles)
+        {
+        }
+        
         Destroy(gameObject, lifetime);
 
         // Rigidbody2D がなければ追加して kinematic にする（接触イベントを確実に受けるため）
@@ -23,6 +33,7 @@ public class MagicProjectile : MonoBehaviour
             rb = gameObject.AddComponent<Rigidbody2D>();
             rb.bodyType = RigidbodyType2D.Kinematic;
             rb.simulated = true;
+            rb.gravityScale = 0f;
         }
 
         // 初期回転を方向に合わせる
@@ -48,20 +59,29 @@ public class MagicProjectile : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
+    // PlayerManager から魔力を渡す
+    public void SetPower(int power)
+    {
+        powerFromPlayer = power;
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        // 敵以外は無視
+        if (!other.CompareTag("Enemy")) return;
+
+        var enemy = other.GetComponent<Enemy>();
+        if (enemy == null)
         {
-            var enemy = other.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
             Destroy(gameObject);
             return;
         }
 
+        // プレイヤーから渡された魔力をそのままダメージにする（未設定なら damage を使う）
+        int totalDamage = powerFromPlayer != 0 ? powerFromPlayer : damage;
+        enemy.TakeDamage(totalDamage);
 
+        Destroy(gameObject);
     }
 }
 // ...existing code...
